@@ -1,0 +1,1976 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Análisis Exploratorio de Datos &#8212; EDAs Machine Learning</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'EDA_Rentabilidad';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Descripción de Variables" href="Variables.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="EDAs Machine Learning - Home"/>
+    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="EDAs Machine Learning - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Introducción
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="Variables.html"><strong>Descripción de Variables</strong></a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#"><strong>Análisis Exploratorio de Datos</strong></a></li>
+
+
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2FEDA_Rentabilidad.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/EDA_Rentabilidad.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Análisis Exploratorio de Datos</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#"><strong>Análisis Exploratorio de Datos</strong></a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#librerias-importadas"><strong>Librerias Importadas</strong></a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#informacion-del-dataset"><strong>Información del dataset</strong></a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#creacion-del-dataset"><strong>Creación del Dataset</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#identificacion-na-s"><strong>Identificación NA’s</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#infromacion-general"><strong>Infromación General</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#analisis-univariado"><strong>Análisis Univariado</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tipo-de-entidad-tipo-entidad"><strong>Tipo de Entidad</strong> (<code class="docutils literal notranslate"><span class="pre">TIPO_ENTIDAD</span></code>)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#principal-compartimento-principal-compartimento"><strong>Principal Compartimento</strong> (<code class="docutils literal notranslate"><span class="pre">PRINCIPAL_COMPARTIMENTO</span></code>)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#numero-de-unidades-de-fondo-registradas-al-cierre-del-dia-anterior-a-la-fecha-numero-unidades-fondo-cierre-oper-dia-t-anterior"><strong>Número de unidades de fondo registradas al cierre del día anterior a la fecha</strong> (<code class="docutils literal notranslate"><span class="pre">NUMERO_UNIDADES_FONDO_CIERRE_OPER_DIA_T_ANTERIOR</span></code>)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rendimientos-abonados-rendimientos-abonados"><strong>Rendimientos Abonados</strong> (<code class="docutils literal notranslate"><span class="pre">RENDIMIENTOS_ABONADOS</span></code>)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#distribucion-de-rentalidades-diaria-mensual-semestral-anual"><strong>Distribución de Rentalidades (<em>Diaria, Mensual, Semestral, Anual</em>)</strong></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#analisis-bivariado"><strong>Análisis Bivariado</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#numero-de-inversionistas-por-subtipo-de-negocio"><strong>Número de Inversionistas por Subtipo de Negocio</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#aportes-recibidos-por-tipo-de-entidad"><strong>Aportes Recibidos por Tipo de Entidad</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#relacion-entre-valor-total-del-fondo-al-cierre-del-dia-t-y-precio-de-cierre-del-fondo-en-el-dia-t"><strong>Relación entre Valor total del fondo al cierre del día T y Precio de cierre del fondo en el día T</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rentabilidad-anual-por-el-tipo-de-entidad"><strong>Rentabilidad Anual por el Tipo de Entidad</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#anulaciones-por-mes-fecha-de-corte"><strong>Anulaciones por Mes (Fecha de Corte)</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#retiros-y-redenciones-por-mes"><strong>Retiros y Redenciones por Mes</strong></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="analisis-exploratorio-de-datos">
+<h1><strong>Análisis Exploratorio de Datos</strong><a class="headerlink" href="#analisis-exploratorio-de-datos" title="Link to this heading">#</a></h1>
+</section>
+<section id="librerias-importadas">
+<h1><strong>Librerias Importadas</strong><a class="headerlink" href="#librerias-importadas" title="Link to this heading">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="informacion-del-dataset">
+<h1><strong>Información del dataset</strong><a class="headerlink" href="#informacion-del-dataset" title="Link to this heading">#</a></h1>
+<section id="creacion-del-dataset">
+<h2><strong>Creación del Dataset</strong><a class="headerlink" href="#creacion-del-dataset" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>
+<span class="c1"># Ruta al archivo CSV</span>
+<span class="n">rentacsv</span> <span class="o">=</span> <span class="s1">&#39;/content/drive/MyDrive/Rentabilidad_2016_2021.csv&#39;</span>
+
+<span class="c1"># Importar el archivo CSV a un DataFrame</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">rentacsv</span><span class="p">)</span>
+
+<span class="c1"># Mostrar las primeras filas del DataFrame</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  FECHA_CORTE  TIPO_ENTIDAD                NOMBRE_TIPO_ENTIDAD  \
+0  2016-01-01             5             SF-SOCIEDAD FIDUCIARIA   
+1  2016-01-01             5             SF-SOCIEDAD FIDUCIARIA   
+2  2016-01-01            85  COMISIONISTAS DE BOLSA DE VALORES   
+3  2016-01-01            85  COMISIONISTAS DE BOLSA DE VALORES   
+4  2016-01-01            85  COMISIONISTAS DE BOLSA DE VALORES   
+
+   CODIGO_ENTIDAD                   NOMBRE_ENTIDAD  TIPO_NEGOCIO  \
+0              20  Fiduciaria Corficolombiana S.A.             9   
+1              40                       Fiducoldex             9   
+2              28                Credicorp Capital             9   
+3              21           Profesionales De Bolsa             9   
+4              14                      Btg Pactual             9   
+
+          NOMBRE_TIPO_PATRIMONIO  SUBTIPO_NEGOCIO  NOMBRE_SUBTIPO_PATRIMONIO  \
+0  FONDOS DE INVERSIÓN COLECTIVA                1        FIC DE TIPO GENERAL   
+1  FONDOS DE INVERSIÓN COLECTIVA                7  FONDOS DE CAPITAL PRIVADO   
+2  FONDOS DE INVERSIÓN COLECTIVA                1        FIC DE TIPO GENERAL   
+3  FONDOS DE INVERSIÓN COLECTIVA                7  FONDOS DE CAPITAL PRIVADO   
+4  FONDOS DE INVERSIÓN COLECTIVA                1        FIC DE TIPO GENERAL   
+
+   CODIGO_NEGOCIO  ... VALOR_UNIDAD_OPERACIONES_DIA_T  APORTES_RECIBIDOS  \
+0           53954  ...                   31051.177754                0.0   
+1           11207  ...                   22230.562658                0.0   
+2           58919  ...                   11330.202179                0.0   
+3           59859  ...                   10053.318931                0.0   
+4           58699  ...                    9326.594797                0.0   
+
+   RETIROS_REDENCIONES  ANULACIONES  VALOR_FONDO_CIERRE_DIA_T  \
+0                  0.0          0.0              9.303540e+11   
+1                  0.0          0.0              1.370691e+11   
+2                  0.0          0.0              1.142338e+10   
+3                  0.0          0.0              7.128130e+09   
+4                  0.0          0.0              5.055087e+08   
+
+   NUMERO_INVERSIONISTAS  RENTABILIDAD_DIARIA  RENTABILIDAD_MENSUAL  \
+0                 5213.0             4.925178              4.540000   
+1                    4.0             0.000071              7.398338   
+2                   32.0             1.049611             -4.692300   
+3                   13.0            -3.038200              5.764400   
+4                   17.0            -2.887314            145.398140   
+
+   RENTABILIDAD_SEMESTRAL  RENTABILIDAD_ANUAL  
+0                3.020000            3.190000  
+1               47.588044           25.129215  
+2                0.631400            3.371184  
+3                0.000000            0.000000  
+4                0.000000            0.000000  
+
+[5 rows x 26 columns]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="identificacion-na-s">
+<h2><strong>Identificación NA’s</strong><a class="headerlink" href="#identificacion-na-s" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+RangeIndex: 1300007 entries, 0 to 1300006
+Data columns (total 26 columns):
+ #   Column                                            Non-Null Count    Dtype  
+---  ------                                            --------------    -----  
+ 0   FECHA_CORTE                                       1300007 non-null  object 
+ 1   TIPO_ENTIDAD                                      1300007 non-null  int64  
+ 2   NOMBRE_TIPO_ENTIDAD                               1300007 non-null  object 
+ 3   CODIGO_ENTIDAD                                    1300007 non-null  int64  
+ 4   NOMBRE_ENTIDAD                                    1300007 non-null  object 
+ 5   TIPO_NEGOCIO                                      1300007 non-null  int64  
+ 6   NOMBRE_TIPO_PATRIMONIO                            1300007 non-null  object 
+ 7   SUBTIPO_NEGOCIO                                   1300007 non-null  int64  
+ 8   NOMBRE_SUBTIPO_PATRIMONIO                         1300007 non-null  object 
+ 9   CODIGO_NEGOCIO                                    1300007 non-null  int64  
+ 10  NOMBRE_PATRIMONIO                                 1300007 non-null  object 
+ 11  PRINCIPAL_COMPARTIMENTO                           1300007 non-null  int64  
+ 12  TIPO_PARTICIPACION                                1300007 non-null  int64  
+ 13  RENDIMIENTOS_ABONADOS                             1300007 non-null  float64
+ 14  PRECIERRE_FONDO_DIA_T                             1300007 non-null  float64
+ 15  NUMERO_UNIDADES_FONDO_CIERRE_OPER_DIA_T_ANTERIOR  1300007 non-null  float64
+ 16  VALOR_UNIDAD_OPERACIONES_DIA_T                    1300007 non-null  float64
+ 17  APORTES_RECIBIDOS                                 1300007 non-null  float64
+ 18  RETIROS_REDENCIONES                               1300007 non-null  float64
+ 19  ANULACIONES                                       1300007 non-null  float64
+ 20  VALOR_FONDO_CIERRE_DIA_T                          1300007 non-null  float64
+ 21  NUMERO_INVERSIONISTAS                             1300007 non-null  float64
+ 22  RENTABILIDAD_DIARIA                               1300007 non-null  float64
+ 23  RENTABILIDAD_MENSUAL                              1300007 non-null  float64
+ 24  RENTABILIDAD_SEMESTRAL                            1300007 non-null  float64
+ 25  RENTABILIDAD_ANUAL                                1300007 non-null  float64
+dtypes: float64(13), int64(7), object(6)
+memory usage: 257.9+ MB
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>0</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>FECHA_CORTE</th>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>TIPO_ENTIDAD</th>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>NOMBRE_TIPO_ENTIDAD</th>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>CODIGO_ENTIDAD</th>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>NOMBRE_ENTIDAD</th>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>TIPO_NEGOCIO</th>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>NOMBRE_TIPO_PATRIMONIO</th>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>SUBTIPO_NEGOCIO</th>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>NOMBRE_SUBTIPO_PATRIMONIO</th>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>CODIGO_NEGOCIO</th>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>NOMBRE_PATRIMONIO</th>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>PRINCIPAL_COMPARTIMENTO</th>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>TIPO_PARTICIPACION</th>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>RENDIMIENTOS_ABONADOS</th>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>PRECIERRE_FONDO_DIA_T</th>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>NUMERO_UNIDADES_FONDO_CIERRE_OPER_DIA_T_ANTERIOR</th>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>VALOR_UNIDAD_OPERACIONES_DIA_T</th>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>APORTES_RECIBIDOS</th>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>RETIROS_REDENCIONES</th>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>ANULACIONES</th>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>VALOR_FONDO_CIERRE_DIA_T</th>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>NUMERO_INVERSIONISTAS</th>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>RENTABILIDAD_DIARIA</th>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>RENTABILIDAD_MENSUAL</th>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>RENTABILIDAD_SEMESTRAL</th>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>RENTABILIDAD_ANUAL</th>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+</div><br><label><b>dtype:</b> int64</label></div></div>
+</div>
+</section>
+<section id="infromacion-general">
+<h2><strong>Infromación General</strong><a class="headerlink" href="#infromacion-general" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html">
+  <div id="df-d4de4cd3-30ad-45f0-b994-3bf63c9e8e24" class="colab-df-container">
+    <div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>TIPO_ENTIDAD</th>
+      <th>CODIGO_ENTIDAD</th>
+      <th>TIPO_NEGOCIO</th>
+      <th>SUBTIPO_NEGOCIO</th>
+      <th>CODIGO_NEGOCIO</th>
+      <th>PRINCIPAL_COMPARTIMENTO</th>
+      <th>TIPO_PARTICIPACION</th>
+      <th>RENDIMIENTOS_ABONADOS</th>
+      <th>PRECIERRE_FONDO_DIA_T</th>
+      <th>NUMERO_UNIDADES_FONDO_CIERRE_OPER_DIA_T_ANTERIOR</th>
+      <th>VALOR_UNIDAD_OPERACIONES_DIA_T</th>
+      <th>APORTES_RECIBIDOS</th>
+      <th>RETIROS_REDENCIONES</th>
+      <th>ANULACIONES</th>
+      <th>VALOR_FONDO_CIERRE_DIA_T</th>
+      <th>NUMERO_INVERSIONISTAS</th>
+      <th>RENTABILIDAD_DIARIA</th>
+      <th>RENTABILIDAD_MENSUAL</th>
+      <th>RENTABILIDAD_SEMESTRAL</th>
+      <th>RENTABILIDAD_ANUAL</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>count</th>
+      <td>1.300007e+06</td>
+      <td>1.300007e+06</td>
+      <td>1300007.0</td>
+      <td>1.300007e+06</td>
+      <td>1.300007e+06</td>
+      <td>1.300007e+06</td>
+      <td>1.300007e+06</td>
+      <td>1.300007e+06</td>
+      <td>1.300007e+06</td>
+      <td>1.300007e+06</td>
+      <td>1.300007e+06</td>
+      <td>1.300007e+06</td>
+      <td>1.300007e+06</td>
+      <td>1.300007e+06</td>
+      <td>1.300007e+06</td>
+      <td>1.300007e+06</td>
+      <td>1.300007e+06</td>
+      <td>1.300007e+06</td>
+      <td>1.300007e+06</td>
+      <td>1.300007e+06</td>
+    </tr>
+    <tr>
+      <th>mean</th>
+      <td>3.442933e+01</td>
+      <td>2.710196e+01</td>
+      <td>9.0</td>
+      <td>2.770966e+00</td>
+      <td>5.027881e+04</td>
+      <td>1.199993e+00</td>
+      <td>6.500195e+02</td>
+      <td>1.890310e+07</td>
+      <td>1.611441e+11</td>
+      <td>6.598879e+11</td>
+      <td>1.157358e+05</td>
+      <td>3.088307e+09</td>
+      <td>3.037605e+09</td>
+      <td>-2.286747e+07</td>
+      <td>1.611709e+11</td>
+      <td>5.209843e+03</td>
+      <td>3.180150e+26</td>
+      <td>2.096465e+26</td>
+      <td>4.633448e+16</td>
+      <td>7.713861e+07</td>
+    </tr>
+    <tr>
+      <th>std</th>
+      <td>3.865099e+01</td>
+      <td>1.885390e+01</td>
+      <td>0.0</td>
+      <td>2.673459e+00</td>
+      <td>2.554373e+04</td>
+      <td>3.999947e-01</td>
+      <td>1.497363e+02</td>
+      <td>2.155705e+09</td>
+      <td>6.371159e+11</td>
+      <td>5.204966e+13</td>
+      <td>3.362218e+06</td>
+      <td>2.243997e+10</td>
+      <td>2.217504e+10</td>
+      <td>1.728039e+09</td>
+      <td>6.371320e+11</td>
+      <td>2.499272e+06</td>
+      <td>1.035133e+29</td>
+      <td>2.737937e+28</td>
+      <td>5.282958e+19</td>
+      <td>8.770580e+10</td>
+    </tr>
+    <tr>
+      <th>min</th>
+      <td>5.000000e+00</td>
+      <td>3.000000e+00</td>
+      <td>9.0</td>
+      <td>1.000000e+00</td>
+      <td>2.713000e+03</td>
+      <td>1.000000e+00</td>
+      <td>5.000000e+00</td>
+      <td>-7.100906e+11</td>
+      <td>-5.865346e+10</td>
+      <td>0.000000e+00</td>
+      <td>0.000000e+00</td>
+      <td>-1.997390e-01</td>
+      <td>-1.249060e+07</td>
+      <td>-6.499977e+11</td>
+      <td>-5.642586e+10</td>
+      <td>0.000000e+00</td>
+      <td>-1.080231e+14</td>
+      <td>-1.113881e+04</td>
+      <td>-2.475177e+02</td>
+      <td>-1.534884e+02</td>
+    </tr>
+    <tr>
+      <th>25%</th>
+      <td>5.000000e+00</td>
+      <td>1.600000e+01</td>
+      <td>9.0</td>
+      <td>1.000000e+00</td>
+      <td>2.574300e+04</td>
+      <td>1.000000e+00</td>
+      <td>5.040000e+02</td>
+      <td>-1.622053e+04</td>
+      <td>4.669345e+09</td>
+      <td>3.663416e+05</td>
+      <td>9.997565e+03</td>
+      <td>0.000000e+00</td>
+      <td>0.000000e+00</td>
+      <td>0.000000e+00</td>
+      <td>4.676455e+09</td>
+      <td>3.000000e+00</td>
+      <td>-1.652880e-01</td>
+      <td>-3.054225e-01</td>
+      <td>0.000000e+00</td>
+      <td>0.000000e+00</td>
+    </tr>
+    <tr>
+      <th>50%</th>
+      <td>5.000000e+00</td>
+      <td>2.100000e+01</td>
+      <td>9.0</td>
+      <td>1.000000e+00</td>
+      <td>5.892100e+04</td>
+      <td>1.000000e+00</td>
+      <td>7.020000e+02</td>
+      <td>7.118279e+05</td>
+      <td>2.507828e+10</td>
+      <td>1.808714e+06</td>
+      <td>1.201734e+04</td>
+      <td>0.000000e+00</td>
+      <td>0.000000e+00</td>
+      <td>0.000000e+00</td>
+      <td>2.508887e+10</td>
+      <td>2.200000e+01</td>
+      <td>2.646109e+00</td>
+      <td>3.810992e+00</td>
+      <td>3.957519e+00</td>
+      <td>3.763481e+00</td>
+    </tr>
+    <tr>
+      <th>75%</th>
+      <td>8.500000e+01</td>
+      <td>3.100000e+01</td>
+      <td>9.0</td>
+      <td>7.000000e+00</td>
+      <td>6.740300e+04</td>
+      <td>1.000000e+00</td>
+      <td>8.000000e+02</td>
+      <td>1.039454e+07</td>
+      <td>1.014578e+11</td>
+      <td>7.891836e+06</td>
+      <td>1.668354e+04</td>
+      <td>1.211798e+06</td>
+      <td>4.454755e+06</td>
+      <td>0.000000e+00</td>
+      <td>1.014693e+11</td>
+      <td>2.360000e+02</td>
+      <td>6.653085e+00</td>
+      <td>7.502263e+00</td>
+      <td>7.285516e+00</td>
+      <td>6.718203e+00</td>
+    </tr>
+    <tr>
+      <th>max</th>
+      <td>8.700000e+01</td>
+      <td>9.700000e+01</td>
+      <td>9.0</td>
+      <td>7.000000e+00</td>
+      <td>1.033280e+05</td>
+      <td>2.000000e+00</td>
+      <td>8.180000e+02</td>
+      <td>5.183557e+11</td>
+      <td>1.589805e+13</td>
+      <td>7.590329e+15</td>
+      <td>7.322737e+08</td>
+      <td>1.013510e+13</td>
+      <td>1.013500e+13</td>
+      <td>4.572483e+11</td>
+      <td>1.589993e+13</td>
+      <td>2.849427e+09</td>
+      <td>5.878116e+31</td>
+      <td>6.435146e+30</td>
+      <td>6.023515e+22</td>
+      <td>1.000000e+14</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+    <div class="colab-df-buttons">
+
+  <div class="colab-df-container">
+    <button class="colab-df-convert" onclick="convertToInteractive('df-d4de4cd3-30ad-45f0-b994-3bf63c9e8e24')"
+            title="Convert this dataframe to an interactive table."
+            style="display:none;">
+
+  <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960">
+    <path d="M120-120v-720h720v720H120Zm60-500h600v-160H180v160Zm220 220h160v-160H400v160Zm0 220h160v-160H400v160ZM180-400h160v-160H180v160Zm440 0h160v-160H620v160ZM180-180h160v-160H180v160Zm440 0h160v-160H620v160Z"/>
+  </svg>
+    </button>
+
+  <style>
+    .colab-df-container {
+      display:flex;
+      gap: 12px;
+    }
+
+    .colab-df-convert {
+      background-color: #E8F0FE;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: none;
+      fill: #1967D2;
+      height: 32px;
+      padding: 0 0 0 0;
+      width: 32px;
+    }
+
+    .colab-df-convert:hover {
+      background-color: #E2EBFA;
+      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
+      fill: #174EA6;
+    }
+
+    .colab-df-buttons div {
+      margin-bottom: 4px;
+    }
+
+    [theme=dark] .colab-df-convert {
+      background-color: #3B4455;
+      fill: #D2E3FC;
+    }
+
+    [theme=dark] .colab-df-convert:hover {
+      background-color: #434B5C;
+      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
+      fill: #FFFFFF;
+    }
+  </style>
+
+    <script>
+      const buttonEl =
+        document.querySelector('#df-d4de4cd3-30ad-45f0-b994-3bf63c9e8e24 button.colab-df-convert');
+      buttonEl.style.display =
+        google.colab.kernel.accessAllowed ? 'block' : 'none';
+
+      async function convertToInteractive(key) {
+        const element = document.querySelector('#df-d4de4cd3-30ad-45f0-b994-3bf63c9e8e24');
+        const dataTable =
+          await google.colab.kernel.invokeFunction('convertToInteractive',
+                                                    [key], {});
+        if (!dataTable) return;
+
+        const docLinkHtml = 'Like what you see? Visit the ' +
+          '<a target="_blank" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'
+          + ' to learn more about interactive tables.';
+        element.innerHTML = '';
+        dataTable['output_type'] = 'display_data';
+        await google.colab.output.renderOutput(dataTable, element);
+        const docLink = document.createElement('div');
+        docLink.innerHTML = docLinkHtml;
+        element.appendChild(docLink);
+      }
+    </script>
+  </div>
+
+
+<div id="df-992d4f4a-255b-476f-aa10-c94928ac4ee6">
+  <button class="colab-df-quickchart" onclick="quickchart('df-992d4f4a-255b-476f-aa10-c94928ac4ee6')"
+            title="Suggest charts"
+            style="display:none;">
+
+<svg xmlns="http://www.w3.org/2000/svg" height="24px"viewBox="0 0 24 24"
+     width="24px">
+    <g>
+        <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/>
+    </g>
+</svg>
+  </button>
+
+<style>
+  .colab-df-quickchart {
+      --bg-color: #E8F0FE;
+      --fill-color: #1967D2;
+      --hover-bg-color: #E2EBFA;
+      --hover-fill-color: #174EA6;
+      --disabled-fill-color: #AAA;
+      --disabled-bg-color: #DDD;
+  }
+
+  [theme=dark] .colab-df-quickchart {
+      --bg-color: #3B4455;
+      --fill-color: #D2E3FC;
+      --hover-bg-color: #434B5C;
+      --hover-fill-color: #FFFFFF;
+      --disabled-bg-color: #3B4455;
+      --disabled-fill-color: #666;
+  }
+
+  .colab-df-quickchart {
+    background-color: var(--bg-color);
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: none;
+    fill: var(--fill-color);
+    height: 32px;
+    padding: 0;
+    width: 32px;
+  }
+
+  .colab-df-quickchart:hover {
+    background-color: var(--hover-bg-color);
+    box-shadow: 0 1px 2px rgba(60, 64, 67, 0.3), 0 1px 3px 1px rgba(60, 64, 67, 0.15);
+    fill: var(--button-hover-fill-color);
+  }
+
+  .colab-df-quickchart-complete:disabled,
+  .colab-df-quickchart-complete:disabled:hover {
+    background-color: var(--disabled-bg-color);
+    fill: var(--disabled-fill-color);
+    box-shadow: none;
+  }
+
+  .colab-df-spinner {
+    border: 2px solid var(--fill-color);
+    border-color: transparent;
+    border-bottom-color: var(--fill-color);
+    animation:
+      spin 1s steps(1) infinite;
+  }
+
+  @keyframes spin {
+    0% {
+      border-color: transparent;
+      border-bottom-color: var(--fill-color);
+      border-left-color: var(--fill-color);
+    }
+    20% {
+      border-color: transparent;
+      border-left-color: var(--fill-color);
+      border-top-color: var(--fill-color);
+    }
+    30% {
+      border-color: transparent;
+      border-left-color: var(--fill-color);
+      border-top-color: var(--fill-color);
+      border-right-color: var(--fill-color);
+    }
+    40% {
+      border-color: transparent;
+      border-right-color: var(--fill-color);
+      border-top-color: var(--fill-color);
+    }
+    60% {
+      border-color: transparent;
+      border-right-color: var(--fill-color);
+    }
+    80% {
+      border-color: transparent;
+      border-right-color: var(--fill-color);
+      border-bottom-color: var(--fill-color);
+    }
+    90% {
+      border-color: transparent;
+      border-bottom-color: var(--fill-color);
+    }
+  }
+</style>
+
+  <script>
+    async function quickchart(key) {
+      const quickchartButtonEl =
+        document.querySelector('#' + key + ' button');
+      quickchartButtonEl.disabled = true;  // To prevent multiple clicks.
+      quickchartButtonEl.classList.add('colab-df-spinner');
+      try {
+        const charts = await google.colab.kernel.invokeFunction(
+            'suggestCharts', [key], {});
+      } catch (error) {
+        console.error('Error during call to suggestCharts:', error);
+      }
+      quickchartButtonEl.classList.remove('colab-df-spinner');
+      quickchartButtonEl.classList.add('colab-df-quickchart-complete');
+    }
+    (() => {
+      let quickchartButtonEl =
+        document.querySelector('#df-992d4f4a-255b-476f-aa10-c94928ac4ee6 button');
+      quickchartButtonEl.style.display =
+        google.colab.kernel.accessAllowed ? 'block' : 'none';
+    })();
+  </script>
+</div>
+
+    </div>
+  </div>
+</div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">describe</span><span class="p">(</span><span class="n">include</span><span class="o">=</span><span class="s1">&#39;object&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html">
+  <div id="df-b6feb64b-a2e4-4e9f-a373-318d9459ce0c" class="colab-df-container">
+    <div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>FECHA_CORTE</th>
+      <th>NOMBRE_TIPO_ENTIDAD</th>
+      <th>NOMBRE_ENTIDAD</th>
+      <th>NOMBRE_TIPO_PATRIMONIO</th>
+      <th>NOMBRE_SUBTIPO_PATRIMONIO</th>
+      <th>NOMBRE_PATRIMONIO</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>count</th>
+      <td>1300007</td>
+      <td>1300007</td>
+      <td>1300007</td>
+      <td>1300007</td>
+      <td>1300007</td>
+      <td>1300007</td>
+    </tr>
+    <tr>
+      <th>unique</th>
+      <td>2192</td>
+      <td>3</td>
+      <td>46</td>
+      <td>1</td>
+      <td>5</td>
+      <td>660</td>
+    </tr>
+    <tr>
+      <th>top</th>
+      <td>2021-12-30</td>
+      <td>SF-SOCIEDAD FIDUCIARIA</td>
+      <td>Alianza Fiduciaria S.A.</td>
+      <td>FONDOS DE INVERSIÓN COLECTIVA</td>
+      <td>FIC DE TIPO GENERAL</td>
+      <td>FONDO ABIERTO ALIANZA</td>
+    </tr>
+    <tr>
+      <th>freq</th>
+      <td>808</td>
+      <td>822895</td>
+      <td>203419</td>
+      <td>1300007</td>
+      <td>869357</td>
+      <td>25206</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+    <div class="colab-df-buttons">
+
+  <div class="colab-df-container">
+    <button class="colab-df-convert" onclick="convertToInteractive('df-b6feb64b-a2e4-4e9f-a373-318d9459ce0c')"
+            title="Convert this dataframe to an interactive table."
+            style="display:none;">
+
+  <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960">
+    <path d="M120-120v-720h720v720H120Zm60-500h600v-160H180v160Zm220 220h160v-160H400v160Zm0 220h160v-160H400v160ZM180-400h160v-160H180v160Zm440 0h160v-160H620v160ZM180-180h160v-160H180v160Zm440 0h160v-160H620v160Z"/>
+  </svg>
+    </button>
+
+  <style>
+    .colab-df-container {
+      display:flex;
+      gap: 12px;
+    }
+
+    .colab-df-convert {
+      background-color: #E8F0FE;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: none;
+      fill: #1967D2;
+      height: 32px;
+      padding: 0 0 0 0;
+      width: 32px;
+    }
+
+    .colab-df-convert:hover {
+      background-color: #E2EBFA;
+      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
+      fill: #174EA6;
+    }
+
+    .colab-df-buttons div {
+      margin-bottom: 4px;
+    }
+
+    [theme=dark] .colab-df-convert {
+      background-color: #3B4455;
+      fill: #D2E3FC;
+    }
+
+    [theme=dark] .colab-df-convert:hover {
+      background-color: #434B5C;
+      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
+      fill: #FFFFFF;
+    }
+  </style>
+
+    <script>
+      const buttonEl =
+        document.querySelector('#df-b6feb64b-a2e4-4e9f-a373-318d9459ce0c button.colab-df-convert');
+      buttonEl.style.display =
+        google.colab.kernel.accessAllowed ? 'block' : 'none';
+
+      async function convertToInteractive(key) {
+        const element = document.querySelector('#df-b6feb64b-a2e4-4e9f-a373-318d9459ce0c');
+        const dataTable =
+          await google.colab.kernel.invokeFunction('convertToInteractive',
+                                                    [key], {});
+        if (!dataTable) return;
+
+        const docLinkHtml = 'Like what you see? Visit the ' +
+          '<a target="_blank" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'
+          + ' to learn more about interactive tables.';
+        element.innerHTML = '';
+        dataTable['output_type'] = 'display_data';
+        await google.colab.output.renderOutput(dataTable, element);
+        const docLink = document.createElement('div');
+        docLink.innerHTML = docLinkHtml;
+        element.appendChild(docLink);
+      }
+    </script>
+  </div>
+
+
+<div id="df-87ac994e-26ff-4c86-b262-d1b95256f720">
+  <button class="colab-df-quickchart" onclick="quickchart('df-87ac994e-26ff-4c86-b262-d1b95256f720')"
+            title="Suggest charts"
+            style="display:none;">
+
+<svg xmlns="http://www.w3.org/2000/svg" height="24px"viewBox="0 0 24 24"
+     width="24px">
+    <g>
+        <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/>
+    </g>
+</svg>
+  </button>
+
+<style>
+  .colab-df-quickchart {
+      --bg-color: #E8F0FE;
+      --fill-color: #1967D2;
+      --hover-bg-color: #E2EBFA;
+      --hover-fill-color: #174EA6;
+      --disabled-fill-color: #AAA;
+      --disabled-bg-color: #DDD;
+  }
+
+  [theme=dark] .colab-df-quickchart {
+      --bg-color: #3B4455;
+      --fill-color: #D2E3FC;
+      --hover-bg-color: #434B5C;
+      --hover-fill-color: #FFFFFF;
+      --disabled-bg-color: #3B4455;
+      --disabled-fill-color: #666;
+  }
+
+  .colab-df-quickchart {
+    background-color: var(--bg-color);
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: none;
+    fill: var(--fill-color);
+    height: 32px;
+    padding: 0;
+    width: 32px;
+  }
+
+  .colab-df-quickchart:hover {
+    background-color: var(--hover-bg-color);
+    box-shadow: 0 1px 2px rgba(60, 64, 67, 0.3), 0 1px 3px 1px rgba(60, 64, 67, 0.15);
+    fill: var(--button-hover-fill-color);
+  }
+
+  .colab-df-quickchart-complete:disabled,
+  .colab-df-quickchart-complete:disabled:hover {
+    background-color: var(--disabled-bg-color);
+    fill: var(--disabled-fill-color);
+    box-shadow: none;
+  }
+
+  .colab-df-spinner {
+    border: 2px solid var(--fill-color);
+    border-color: transparent;
+    border-bottom-color: var(--fill-color);
+    animation:
+      spin 1s steps(1) infinite;
+  }
+
+  @keyframes spin {
+    0% {
+      border-color: transparent;
+      border-bottom-color: var(--fill-color);
+      border-left-color: var(--fill-color);
+    }
+    20% {
+      border-color: transparent;
+      border-left-color: var(--fill-color);
+      border-top-color: var(--fill-color);
+    }
+    30% {
+      border-color: transparent;
+      border-left-color: var(--fill-color);
+      border-top-color: var(--fill-color);
+      border-right-color: var(--fill-color);
+    }
+    40% {
+      border-color: transparent;
+      border-right-color: var(--fill-color);
+      border-top-color: var(--fill-color);
+    }
+    60% {
+      border-color: transparent;
+      border-right-color: var(--fill-color);
+    }
+    80% {
+      border-color: transparent;
+      border-right-color: var(--fill-color);
+      border-bottom-color: var(--fill-color);
+    }
+    90% {
+      border-color: transparent;
+      border-bottom-color: var(--fill-color);
+    }
+  }
+</style>
+
+  <script>
+    async function quickchart(key) {
+      const quickchartButtonEl =
+        document.querySelector('#' + key + ' button');
+      quickchartButtonEl.disabled = true;  // To prevent multiple clicks.
+      quickchartButtonEl.classList.add('colab-df-spinner');
+      try {
+        const charts = await google.colab.kernel.invokeFunction(
+            'suggestCharts', [key], {});
+      } catch (error) {
+        console.error('Error during call to suggestCharts:', error);
+      }
+      quickchartButtonEl.classList.remove('colab-df-spinner');
+      quickchartButtonEl.classList.add('colab-df-quickchart-complete');
+    }
+    (() => {
+      let quickchartButtonEl =
+        document.querySelector('#df-87ac994e-26ff-4c86-b262-d1b95256f720 button');
+      quickchartButtonEl.style.display =
+        google.colab.kernel.accessAllowed ? 'block' : 'none';
+    })();
+  </script>
+</div>
+
+    </div>
+  </div>
+</div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Seleccionar solo las columnas numéricas</span>
+<span class="n">df_numeric</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">select_dtypes</span><span class="p">(</span><span class="n">include</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;float64&quot;</span><span class="p">])</span>
+
+<span class="c1"># Calcular la matriz de correlación</span>
+<span class="n">corr</span> <span class="o">=</span> <span class="n">df_numeric</span><span class="o">.</span><span class="n">corr</span><span class="p">()</span>
+
+<span class="c1"># Crear el mapa de calor</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">corr</span><span class="p">,</span> <span class="n">annot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="s2">&quot;.2f&quot;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;coolwarm&quot;</span><span class="p">,</span> <span class="n">linewidths</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># Título y visualización</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Mapa de Correlación entre Variables Numéricas&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/59e0e5b77464813f72a9367d04d4943823d68c1342e6301df7174990afe1553e.png" src="_images/59e0e5b77464813f72a9367d04d4943823d68c1342e6301df7174990afe1553e.png" />
+</div>
+</div>
+</section>
+<section id="analisis-univariado">
+<h2><strong>Análisis Univariado</strong><a class="headerlink" href="#analisis-univariado" title="Link to this heading">#</a></h2>
+<section id="tipo-de-entidad-tipo-entidad">
+<h3><strong>Tipo de Entidad</strong> (<code class="docutils literal notranslate"><span class="pre">TIPO_ENTIDAD</span></code>)<a class="headerlink" href="#tipo-de-entidad-tipo-entidad" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;whitegrid&quot;</span><span class="p">)</span>
+<span class="c1"># Contar las frecuencias de cada categoría y ordenar de mayor a menor</span>
+<span class="n">orden</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;NOMBRE_TIPO_ENTIDAD&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">index</span>
+
+<span class="c1"># Crear el gráfico de barras horizontal</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Tipo de entidad&#39;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">countplot</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;NOMBRE_TIPO_ENTIDAD&#39;</span><span class="p">],</span> <span class="n">order</span><span class="o">=</span><span class="n">orden</span><span class="p">,</span> <span class="n">orient</span><span class="o">=</span><span class="s1">&#39;h&#39;</span><span class="p">,</span> <span class="n">palette</span><span class="o">=</span><span class="s1">&#39;viridis&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Entidad&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Frequency&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/c01445b740dcfe811b1c140abce2921ef7dfe9d83cf9be1c61e392a5f383da4d.png" src="_images/c01445b740dcfe811b1c140abce2921ef7dfe9d83cf9be1c61e392a5f383da4d.png" />
+</div>
+</div>
+</section>
+<section id="principal-compartimento-principal-compartimento">
+<h3><strong>Principal Compartimento</strong> (<code class="docutils literal notranslate"><span class="pre">PRINCIPAL_COMPARTIMENTO</span></code>)<a class="headerlink" href="#principal-compartimento-principal-compartimento" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sex_count</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;PRINCIPAL_COMPARTIMENTO&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">pie</span><span class="p">(</span><span class="n">sex_count</span><span class="p">,</span> <span class="n">labels</span> <span class="o">=</span> <span class="n">sex_count</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">autopct</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">%1.1f%%</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">startangle</span><span class="o">=</span><span class="mi">90</span><span class="p">,</span> <span class="n">colors</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;darkcyan&quot;</span><span class="p">,</span> <span class="s2">&quot;steelblue&quot;</span><span class="p">]</span> <span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Distribución Compartimento Principal&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="n">df</span><span class="p">[</span><span class="s2">&quot;PRINCIPAL_COMPARTIMENTO&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+<span class="n">df</span><span class="p">[</span><span class="s2">&quot;PRINCIPAL_COMPARTIMENTO&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">(</span><span class="n">normalize</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/e2508122248dee30f7d7667e2ee74a22365e264d64d65fbaa8f488a298aa8fb9.png" src="_images/e2508122248dee30f7d7667e2ee74a22365e264d64d65fbaa8f488a298aa8fb9.png" />
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>proportion</th>
+    </tr>
+    <tr>
+      <th>PRINCIPAL_COMPARTIMENTO</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1</th>
+      <td>80.000723</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>19.999277</td>
+    </tr>
+  </tbody>
+</table>
+</div><br><label><b>dtype:</b> float64</label></div></div>
+</div>
+</section>
+<section id="numero-de-unidades-de-fondo-registradas-al-cierre-del-dia-anterior-a-la-fecha-numero-unidades-fondo-cierre-oper-dia-t-anterior">
+<h3><strong>Número de unidades de fondo registradas al cierre del día anterior a la fecha</strong> (<code class="docutils literal notranslate"><span class="pre">NUMERO_UNIDADES_FONDO_CIERRE_OPER_DIA_T_ANTERIOR</span></code>)<a class="headerlink" href="#numero-de-unidades-de-fondo-registradas-al-cierre-del-dia-anterior-a-la-fecha-numero-unidades-fondo-cierre-oper-dia-t-anterior" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;log_NUMERO_UNIDADES&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log1p</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;NUMERO_UNIDADES_FONDO_CIERRE_OPER_DIA_T_ANTERIOR&quot;</span><span class="p">])</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;log_NUMERO_UNIDADES&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">dropna</span><span class="p">(),</span> <span class="n">bins</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;darkcyan&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Log( Número de Unidades + 1 )&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Frecuencia&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Dsitrbución de Número de Unidades&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/9820bbda962256831c9ac3b2dc4998f8e6004a55ab6d9537050a337070e383b9.png" src="_images/9820bbda962256831c9ac3b2dc4998f8e6004a55ab6d9537050a337070e383b9.png" />
+</div>
+</div>
+<p>Se uso transformación logaritmica en los datos a manera de poder visualizar de mejor forma las distribución de los datos.</p>
+</section>
+<section id="rendimientos-abonados-rendimientos-abonados">
+<h3><strong>Rendimientos Abonados</strong> (<code class="docutils literal notranslate"><span class="pre">RENDIMIENTOS_ABONADOS</span></code>)<a class="headerlink" href="#rendimientos-abonados-rendimientos-abonados" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;log_rendi&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log1p</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;RENDIMIENTOS_ABONADOS&quot;</span><span class="p">])</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;log_rendi&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">dropna</span><span class="p">(),</span> <span class="n">bins</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;seagreen&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Log(Rendimientos Abonados + 1 )&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Frecuencia&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Dsitrbución de Rendimientos Abonados&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/62242fbecf599d2d4640dd65404cd68d0eef3e161ce2a29abeade189f28645e9.png" src="_images/62242fbecf599d2d4640dd65404cd68d0eef3e161ce2a29abeade189f28645e9.png" />
+</div>
+</div>
+</section>
+<section id="distribucion-de-rentalidades-diaria-mensual-semestral-anual">
+<h3><strong>Distribución de Rentalidades (<em>Diaria, Mensual, Semestral, Anual</em>)</strong><a class="headerlink" href="#distribucion-de-rentalidades-diaria-mensual-semestral-anual" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+
+<span class="c1"># Columnas y títulos</span>
+<span class="n">cols</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;RENTABILIDAD_DIARIA&quot;</span><span class="p">,</span> <span class="s2">&quot;RENTABILIDAD_MENSUAL&quot;</span><span class="p">,</span> <span class="s2">&quot;RENTABILIDAD_SEMESTRAL&quot;</span><span class="p">,</span> <span class="s2">&quot;RENTABILIDAD_ANUAL&quot;</span><span class="p">]</span>
+<span class="n">titles</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Diaria&quot;</span><span class="p">,</span> <span class="s2">&quot;Mensual&quot;</span><span class="p">,</span> <span class="s2">&quot;Semestral&quot;</span><span class="p">,</span> <span class="s2">&quot;Anual&quot;</span><span class="p">]</span>
+
+<span class="c1"># Crear histogramas con transformación logarítmica</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">ax</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">axes</span><span class="o">.</span><span class="n">flatten</span><span class="p">()):</span>
+    <span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log1p</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">cols</span><span class="p">[</span><span class="n">i</span><span class="p">]]),</span> <span class="n">bins</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">kde</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;steelblue&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Distribución Logarítmica de Rentabilidad </span><span class="si">{</span><span class="n">titles</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;log(1 + </span><span class="si">{</span><span class="n">cols</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>  <span class="c1"># Etiqueta del eje X con la transformación aplicada</span>
+
+<span class="c1"># Ajustar diseño</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/52de6f4d45761b141048798a4a812d54e5b07fe77492f11d526793984203de6a.png" src="_images/52de6f4d45761b141048798a4a812d54e5b07fe77492f11d526793984203de6a.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="analisis-bivariado">
+<h2><strong>Análisis Bivariado</strong><a class="headerlink" href="#analisis-bivariado" title="Link to this heading">#</a></h2>
+<section id="numero-de-inversionistas-por-subtipo-de-negocio">
+<h3><strong>Número de Inversionistas por Subtipo de Negocio</strong><a class="headerlink" href="#numero-de-inversionistas-por-subtipo-de-negocio" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Filtrar los subtipos de negocio relevantes</span>
+<span class="n">subtipos</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">]</span>
+<span class="n">df_filtrado</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;SUBTIPO_NEGOCIO&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">subtipos</span><span class="p">)]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+<span class="c1"># Aplicar transformación logarítmica (sumar 1 para evitar log(0))</span>
+<span class="n">df_filtrado</span><span class="p">[</span><span class="s2">&quot;LOG_NUMERO_INVERSIONISTAS&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log1p</span><span class="p">(</span><span class="n">df_filtrado</span><span class="p">[</span><span class="s2">&quot;NUMERO_INVERSIONISTAS&quot;</span><span class="p">])</span>
+
+<span class="c1"># Crear diccionario de nombres de subtipos</span>
+<span class="n">mapeo_nombres</span> <span class="o">=</span> <span class="n">df_filtrado</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">(</span><span class="s2">&quot;SUBTIPO_NEGOCIO&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s2">&quot;SUBTIPO_NEGOCIO&quot;</span><span class="p">)[</span><span class="s2">&quot;NOMBRE_SUBTIPO_PATRIMONIO&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span>
+
+<span class="c1"># Crear subgráficos (Antes y Después de transformación logarítmica)</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">subtipos</span><span class="p">),</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="c1"># Paleta de colores</span>
+<span class="n">palette</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">color_palette</span><span class="p">(</span><span class="s2">&quot;viridis&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">subtipos</span><span class="p">))</span>
+
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">subtipo</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">subtipos</span><span class="p">):</span>
+    <span class="n">sns</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df_filtrado</span><span class="p">[</span><span class="n">df_filtrado</span><span class="p">[</span><span class="s2">&quot;SUBTIPO_NEGOCIO&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">subtipo</span><span class="p">],</span>
+                <span class="n">y</span><span class="o">=</span><span class="s2">&quot;LOG_NUMERO_INVERSIONISTAS&quot;</span><span class="p">,</span>
+                <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">],</span>
+                <span class="n">color</span><span class="o">=</span><span class="n">palette</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">mapeo_nombres</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">subtipo</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;Subtipo </span><span class="si">{</span><span class="n">subtipo</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">))</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Log(Inversionistas)&quot;</span><span class="p">)</span>
+
+<span class="c1"># Ajustar diseño y mostrar</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s2">&quot;Distribución (Log) del Número de Inversionistas por Subtipo de Negocio&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/ab49f24d6b43d2bfd7cc7f28a8a482f092485039b1ef981cd4f7ef2e31264dc2.png" src="_images/ab49f24d6b43d2bfd7cc7f28a8a482f092485039b1ef981cd4f7ef2e31264dc2.png" />
+</div>
+</div>
+</section>
+<section id="aportes-recibidos-por-tipo-de-entidad">
+<h3><strong>Aportes Recibidos por Tipo de Entidad</strong><a class="headerlink" href="#aportes-recibidos-por-tipo-de-entidad" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>
+<span class="c1"># Agrupar por subtipo de negocio y calcular la suma de aportaciones y retiros</span>
+<span class="n">df_grouped</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;TIPO_ENTIDAD&quot;</span><span class="p">)[</span><span class="s2">&quot;APORTES_RECIBIDOS&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+
+<span class="c1"># Transformar los datos para que seaborn lo entienda mejor</span>
+<span class="n">df_melted</span> <span class="o">=</span> <span class="n">df_grouped</span><span class="o">.</span><span class="n">melt</span><span class="p">(</span><span class="n">id_vars</span><span class="o">=</span><span class="s2">&quot;TIPO_ENTIDAD&quot;</span><span class="p">,</span> <span class="n">var_name</span><span class="o">=</span><span class="s2">&quot;Tipo&quot;</span><span class="p">,</span> <span class="n">value_name</span><span class="o">=</span><span class="s2">&quot;Monto&quot;</span><span class="p">)</span>
+
+<span class="c1"># Crear el gráfico</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">barplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df_melted</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s2">&quot;TIPO_ENTIDAD&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;Monto&quot;</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s2">&quot;Tipo&quot;</span><span class="p">,</span> <span class="n">palette</span><span class="o">=</span><span class="s1">&#39;viridis&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">yscale</span><span class="p">(</span><span class="s2">&quot;log&quot;</span><span class="p">)</span>
+
+
+<span class="c1"># Personalización</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Subtipo de Negocio&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Monto Total&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Distribución Aportes Recibidos por Subtipo de Negocio&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">rotation</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
+
+<span class="c1"># Mostrar gráfico</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/1a7db0e2675de92d046499fcca42a4878ea27a2394466eaff8c2aa38216f7dc9.png" src="_images/1a7db0e2675de92d046499fcca42a4878ea27a2394466eaff8c2aa38216f7dc9.png" />
+</div>
+</div>
+</section>
+<section id="relacion-entre-valor-total-del-fondo-al-cierre-del-dia-t-y-precio-de-cierre-del-fondo-en-el-dia-t">
+<h3><strong>Relación entre Valor total del fondo al cierre del día T y Precio de cierre del fondo en el día T</strong><a class="headerlink" href="#relacion-entre-valor-total-del-fondo-al-cierre-del-dia-t-y-precio-de-cierre-del-fondo-en-el-dia-t" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s2">&quot;VALOR_FONDO_CIERRE_DIA_T&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;PRECIERRE_FONDO_DIA_T&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;seagreen&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Valor Fondo Cierre&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Precierre&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Relación entre Valor Fondo Cierre y Precierre Fondo&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/c0b1340b0b0bab4d02b27a0d06227e51721cd27ef07a072b59971775fd11ab9a.png" src="_images/c0b1340b0b0bab4d02b27a0d06227e51721cd27ef07a072b59971775fd11ab9a.png" />
+</div>
+</div>
+</section>
+<section id="rentabilidad-anual-por-el-tipo-de-entidad">
+<h3><strong>Rentabilidad Anual por el Tipo de Entidad</strong><a class="headerlink" href="#rentabilidad-anual-por-el-tipo-de-entidad" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Aplicar transformación logarítmica a las variables</span>
+<span class="n">df</span><span class="p">[</span><span class="s2">&quot;log_RENTABILIDAD_ANUAL&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log1p</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;RENTABILIDAD_ANUAL&quot;</span><span class="p">])</span>
+
+<span class="c1"># Graficar boxplots con los valores transformados</span>
+<span class="n">g</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">catplot</span><span class="p">(</span>
+    <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span>
+    <span class="n">x</span><span class="o">=</span><span class="s2">&quot;log_RENTABILIDAD_ANUAL&quot;</span><span class="p">,</span>
+    <span class="n">col</span><span class="o">=</span><span class="s2">&quot;NOMBRE_TIPO_ENTIDAD&quot;</span><span class="p">,</span>
+    <span class="n">kind</span><span class="o">=</span><span class="s2">&quot;box&quot;</span><span class="p">,</span>
+    <span class="n">col_wrap</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+    <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">color</span><span class="o">=</span><span class="s1">&#39;seagreen&#39;</span>
+<span class="p">)</span>
+
+<span class="c1"># Ajustar títulos</span>
+<span class="n">g</span><span class="o">.</span><span class="n">set_axis_labels</span><span class="p">(</span><span class="s2">&quot;Log(Rentabilidad Anual (%) Operaciones + 1)&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">set_titles</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{col_name}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/dec11372bf440474d4adcc5f75d2d7f505a40db52d169d9cd57e3e33d85e31e9.png" src="_images/dec11372bf440474d4adcc5f75d2d7f505a40db52d169d9cd57e3e33d85e31e9.png" />
+</div>
+</div>
+<p>Se usó la transformación logaritmica en los datos de rentabilidad anual para mejorar la visualización de su distribución.</p>
+</section>
+<section id="anulaciones-por-mes-fecha-de-corte">
+<h3><strong>Anulaciones por Mes (Fecha de Corte)</strong><a class="headerlink" href="#anulaciones-por-mes-fecha-de-corte" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>
+<span class="c1"># Convertir fecha a datetime</span>
+<span class="n">df</span><span class="p">[</span><span class="s2">&quot;FECHA_CORTE&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;FECHA_CORTE&quot;</span><span class="p">],</span> <span class="n">dayfirst</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">errors</span><span class="o">=</span><span class="s1">&#39;coerce&#39;</span><span class="p">)</span>
+
+<span class="c1"># Crear columnas de Año y Mes</span>
+<span class="n">df</span><span class="p">[</span><span class="s2">&quot;AÑO&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;FECHA_CORTE&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">year</span>
+<span class="n">df</span><span class="p">[</span><span class="s2">&quot;MES&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;FECHA_CORTE&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">month</span>
+
+<span class="c1"># Agrupar por Año y Mes</span>
+<span class="n">df_grouped</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s2">&quot;AÑO&quot;</span><span class="p">,</span> <span class="s2">&quot;MES&quot;</span><span class="p">])[</span><span class="s2">&quot;ANULACIONES&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+
+<span class="c1"># Separar en dos grupos de años</span>
+<span class="n">grupo1</span> <span class="o">=</span> <span class="n">df_grouped</span><span class="p">[</span><span class="n">df_grouped</span><span class="p">[</span><span class="s2">&quot;AÑO&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">between</span><span class="p">(</span><span class="mi">2016</span><span class="p">,</span> <span class="mi">2018</span><span class="p">)]</span>
+<span class="n">grupo2</span> <span class="o">=</span> <span class="n">df_grouped</span><span class="p">[</span><span class="n">df_grouped</span><span class="p">[</span><span class="s2">&quot;AÑO&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">between</span><span class="p">(</span><span class="mi">2019</span><span class="p">,</span> <span class="mi">2021</span><span class="p">)]</span>
+
+<span class="c1"># Crear figura con dos subgráficos</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># Gráfico 1 (2016-2020)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">lineplot</span><span class="p">(</span>
+    <span class="n">data</span><span class="o">=</span><span class="n">grupo1</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s2">&quot;MES&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;ANULACIONES&quot;</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s2">&quot;AÑO&quot;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;o&quot;</span><span class="p">,</span> <span class="n">palette</span><span class="o">=</span><span class="s2">&quot;viridis&quot;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Anulaciones por Mes (2016-2018)&quot;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Mes&quot;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Promedio de Anulaciones&quot;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">13</span><span class="p">))</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">([</span><span class="s2">&quot;Ene&quot;</span><span class="p">,</span> <span class="s2">&quot;Feb&quot;</span><span class="p">,</span> <span class="s2">&quot;Mar&quot;</span><span class="p">,</span> <span class="s2">&quot;Abr&quot;</span><span class="p">,</span> <span class="s2">&quot;May&quot;</span><span class="p">,</span> <span class="s2">&quot;Jun&quot;</span><span class="p">,</span> <span class="s2">&quot;Jul&quot;</span><span class="p">,</span> <span class="s2">&quot;Ago&quot;</span><span class="p">,</span> <span class="s2">&quot;Sep&quot;</span><span class="p">,</span> <span class="s2">&quot;Oct&quot;</span><span class="p">,</span> <span class="s2">&quot;Nov&quot;</span><span class="p">,</span> <span class="s2">&quot;Dic&quot;</span><span class="p">])</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">&quot;Año&quot;</span><span class="p">)</span>
+
+<span class="c1"># Gráfico 2 (2021-2025)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">lineplot</span><span class="p">(</span>
+    <span class="n">data</span><span class="o">=</span><span class="n">grupo2</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s2">&quot;MES&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;ANULACIONES&quot;</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s2">&quot;AÑO&quot;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;o&quot;</span><span class="p">,</span> <span class="n">palette</span><span class="o">=</span><span class="s2">&quot;deep&quot;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Anulaciones por Mes (2019-2021)&quot;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Mes&quot;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">13</span><span class="p">))</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">([</span><span class="s2">&quot;Ene&quot;</span><span class="p">,</span> <span class="s2">&quot;Feb&quot;</span><span class="p">,</span> <span class="s2">&quot;Mar&quot;</span><span class="p">,</span> <span class="s2">&quot;Abr&quot;</span><span class="p">,</span> <span class="s2">&quot;May&quot;</span><span class="p">,</span> <span class="s2">&quot;Jun&quot;</span><span class="p">,</span> <span class="s2">&quot;Jul&quot;</span><span class="p">,</span> <span class="s2">&quot;Ago&quot;</span><span class="p">,</span> <span class="s2">&quot;Sep&quot;</span><span class="p">,</span> <span class="s2">&quot;Oct&quot;</span><span class="p">,</span> <span class="s2">&quot;Nov&quot;</span><span class="p">,</span> <span class="s2">&quot;Dic&quot;</span><span class="p">])</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">&quot;Año&quot;</span><span class="p">)</span>
+
+<span class="c1"># Ajustar diseño y mostrar</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/4ec35c2cbc562ceb95bfa3634e8b8fc0c3b2a49c2bc0e3ba8f0c74f70bcecc76.png" src="_images/4ec35c2cbc562ceb95bfa3634e8b8fc0c3b2a49c2bc0e3ba8f0c74f70bcecc76.png" />
+</div>
+</div>
+</section>
+<section id="retiros-y-redenciones-por-mes">
+<h3><strong>Retiros y Redenciones por Mes</strong><a class="headerlink" href="#retiros-y-redenciones-por-mes" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>
+<span class="c1"># Convertir fecha a datetime</span>
+<span class="n">df</span><span class="p">[</span><span class="s2">&quot;FECHA_CORTE&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;FECHA_CORTE&quot;</span><span class="p">],</span> <span class="n">dayfirst</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">errors</span><span class="o">=</span><span class="s1">&#39;coerce&#39;</span><span class="p">)</span>
+
+<span class="c1"># Crear columnas de Año y Mes</span>
+<span class="n">df</span><span class="p">[</span><span class="s2">&quot;AÑO&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;FECHA_CORTE&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">year</span>
+<span class="n">df</span><span class="p">[</span><span class="s2">&quot;MES&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;FECHA_CORTE&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">month</span>
+
+<span class="c1"># Agrupar por Año y Mes</span>
+<span class="n">df_grouped</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s2">&quot;AÑO&quot;</span><span class="p">,</span> <span class="s2">&quot;MES&quot;</span><span class="p">])[</span><span class="s2">&quot;RETIROS_REDENCIONES&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+
+<span class="c1"># Separar en dos grupos de años</span>
+<span class="n">grupo1</span> <span class="o">=</span> <span class="n">df_grouped</span><span class="p">[</span><span class="n">df_grouped</span><span class="p">[</span><span class="s2">&quot;AÑO&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">between</span><span class="p">(</span><span class="mi">2016</span><span class="p">,</span> <span class="mi">2018</span><span class="p">)]</span>
+<span class="n">grupo2</span> <span class="o">=</span> <span class="n">df_grouped</span><span class="p">[</span><span class="n">df_grouped</span><span class="p">[</span><span class="s2">&quot;AÑO&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">between</span><span class="p">(</span><span class="mi">2019</span><span class="p">,</span> <span class="mi">2021</span><span class="p">)]</span>
+
+<span class="c1"># Crear figura con dos subgráficos</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># Gráfico 1 (2016-2020)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">lineplot</span><span class="p">(</span>
+    <span class="n">data</span><span class="o">=</span><span class="n">grupo1</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s2">&quot;MES&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;RETIROS_REDENCIONES&quot;</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s2">&quot;AÑO&quot;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;o&quot;</span><span class="p">,</span> <span class="n">palette</span><span class="o">=</span><span class="s2">&quot;viridis&quot;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Retiros y Redenciones por Mes (2016-2018)&quot;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Mes&quot;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Promedio de Retiros y Redenciones&quot;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">13</span><span class="p">))</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">([</span><span class="s2">&quot;Ene&quot;</span><span class="p">,</span> <span class="s2">&quot;Feb&quot;</span><span class="p">,</span> <span class="s2">&quot;Mar&quot;</span><span class="p">,</span> <span class="s2">&quot;Abr&quot;</span><span class="p">,</span> <span class="s2">&quot;May&quot;</span><span class="p">,</span> <span class="s2">&quot;Jun&quot;</span><span class="p">,</span> <span class="s2">&quot;Jul&quot;</span><span class="p">,</span> <span class="s2">&quot;Ago&quot;</span><span class="p">,</span> <span class="s2">&quot;Sep&quot;</span><span class="p">,</span> <span class="s2">&quot;Oct&quot;</span><span class="p">,</span> <span class="s2">&quot;Nov&quot;</span><span class="p">,</span> <span class="s2">&quot;Dic&quot;</span><span class="p">])</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">&quot;Año&quot;</span><span class="p">)</span>
+
+<span class="c1"># Gráfico 2 (2021-2025)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">lineplot</span><span class="p">(</span>
+    <span class="n">data</span><span class="o">=</span><span class="n">grupo2</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s2">&quot;MES&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;RETIROS_REDENCIONES&quot;</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s2">&quot;AÑO&quot;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;o&quot;</span><span class="p">,</span> <span class="n">palette</span><span class="o">=</span><span class="s2">&quot;deep&quot;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Retiros y Redenciones por Mes (2019-2021)&quot;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Mes&quot;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">13</span><span class="p">))</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">([</span><span class="s2">&quot;Ene&quot;</span><span class="p">,</span> <span class="s2">&quot;Feb&quot;</span><span class="p">,</span> <span class="s2">&quot;Mar&quot;</span><span class="p">,</span> <span class="s2">&quot;Abr&quot;</span><span class="p">,</span> <span class="s2">&quot;May&quot;</span><span class="p">,</span> <span class="s2">&quot;Jun&quot;</span><span class="p">,</span> <span class="s2">&quot;Jul&quot;</span><span class="p">,</span> <span class="s2">&quot;Ago&quot;</span><span class="p">,</span> <span class="s2">&quot;Sep&quot;</span><span class="p">,</span> <span class="s2">&quot;Oct&quot;</span><span class="p">,</span> <span class="s2">&quot;Nov&quot;</span><span class="p">,</span> <span class="s2">&quot;Dic&quot;</span><span class="p">])</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">&quot;Año&quot;</span><span class="p">)</span>
+
+<span class="c1"># Ajustar diseño y mostrar</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/5ea5f7e32908e98039ea66e9af33e51ba9ed78d945fe576669c0e392791cf4ef.png" src="_images/5ea5f7e32908e98039ea66e9af33e51ba9ed78d945fe576669c0e392791cf4ef.png" />
+</div>
+</div>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="Variables.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title"><strong>Descripción de Variables</strong></p>
+      </div>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#"><strong>Análisis Exploratorio de Datos</strong></a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#librerias-importadas"><strong>Librerias Importadas</strong></a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#informacion-del-dataset"><strong>Información del dataset</strong></a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#creacion-del-dataset"><strong>Creación del Dataset</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#identificacion-na-s"><strong>Identificación NA’s</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#infromacion-general"><strong>Infromación General</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#analisis-univariado"><strong>Análisis Univariado</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tipo-de-entidad-tipo-entidad"><strong>Tipo de Entidad</strong> (<code class="docutils literal notranslate"><span class="pre">TIPO_ENTIDAD</span></code>)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#principal-compartimento-principal-compartimento"><strong>Principal Compartimento</strong> (<code class="docutils literal notranslate"><span class="pre">PRINCIPAL_COMPARTIMENTO</span></code>)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#numero-de-unidades-de-fondo-registradas-al-cierre-del-dia-anterior-a-la-fecha-numero-unidades-fondo-cierre-oper-dia-t-anterior"><strong>Número de unidades de fondo registradas al cierre del día anterior a la fecha</strong> (<code class="docutils literal notranslate"><span class="pre">NUMERO_UNIDADES_FONDO_CIERRE_OPER_DIA_T_ANTERIOR</span></code>)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rendimientos-abonados-rendimientos-abonados"><strong>Rendimientos Abonados</strong> (<code class="docutils literal notranslate"><span class="pre">RENDIMIENTOS_ABONADOS</span></code>)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#distribucion-de-rentalidades-diaria-mensual-semestral-anual"><strong>Distribución de Rentalidades (<em>Diaria, Mensual, Semestral, Anual</em>)</strong></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#analisis-bivariado"><strong>Análisis Bivariado</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#numero-de-inversionistas-por-subtipo-de-negocio"><strong>Número de Inversionistas por Subtipo de Negocio</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#aportes-recibidos-por-tipo-de-entidad"><strong>Aportes Recibidos por Tipo de Entidad</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#relacion-entre-valor-total-del-fondo-al-cierre-del-dia-t-y-precio-de-cierre-del-fondo-en-el-dia-t"><strong>Relación entre Valor total del fondo al cierre del día T y Precio de cierre del fondo en el día T</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rentabilidad-anual-por-el-tipo-de-entidad"><strong>Rentabilidad Anual por el Tipo de Entidad</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#anulaciones-por-mes-fecha-de-corte"><strong>Anulaciones por Mes (Fecha de Corte)</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#retiros-y-redenciones-por-mes"><strong>Retiros y Redenciones por Mes</strong></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Daniella Guerra & Tawny Torres
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
