@@ -1,9 +1,10 @@
 # Book settings
 # Learn more at https://jupyterbook.org/customize/config.html
 
-title: EDAs Machine Learning
+title: Análisis Exploratorio de Dastos (FIC)
+description: Libro de texto que desarolla un análisis exploratorio de datos sobre las FIC
 author: Daniella Guerra & Tawny Torres
-logo: logo.png
+
 
 # Force re-execution of notebooks on each build.
 # See https://jupyterbook.org/content/execute.html
