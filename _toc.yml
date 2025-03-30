@@ -6,4 +6,5 @@ root: intro
 chapters:
 - file: Variables
 - file: EDA_Rentabilidad
+- file: models
 - file: references
