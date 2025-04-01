@@ -7,4 +7,5 @@ chapters:
 - file: Variables
 - file: EDA_Rentabilidad
 - file: models
+- flie: models_opt
 - file: references
